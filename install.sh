@@ -9,8 +9,7 @@ bash ./bash/docker_install.sh &> /dev/null
 #echo "Docker is $(systemctl is-enabled docker) and $(systemctl is-active docker). Docker system prune automated."
 #echo
 #echo "$SPLIT"
-bash ./bash/set_vars.sh
-
+touch /home/"${SUDO_USER:-$USER}"/docker/.env
 bash ./bash/fn_var.sh
 #echo
 #echo "Created docker .env"
@@ -26,4 +25,4 @@ bash ./bash/docker_compose.sh
 #echo "InfluxDB.........(high-speed read and write database)"
 #echo "Telegraf.........(plugin-driven server agent for collecting and reporting metrics)"
 #echo ""
-rm /home/"${SUDO_USER:-$USER}"/docker/.var
+#rm /home/"${SUDO_USER:-$USER}"/docker/.var
