@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source /home/"${SUDO_USER:-$USER}"/docker/.var
-
 cat <<EOF > /home/"${SUDO_USER:-$USER}"/docker/docker-compose.yml
 version: "3.9"
 services:
@@ -15,13 +13,14 @@ services:
 
   telegraf:
     image: telegraf
+    env_file: .env
     volumes:
       - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
     depends_on:
       - db
     environment:
       - INFLUXDB_URL=http://influxdb:8086
-      - WEBSITE=$WEBSITE
+      - WEBSITE=${WEBSITE}
     network_mode: "service:db"
 
   grafana:
