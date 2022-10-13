@@ -16,7 +16,8 @@ echo
 echo "Created docker .env"
 echo
 bash ./bash/data_dash.sh &> /dev/null
-cp ./json/* /home/"${SUDO_USER:-$USER}"/docker/grafana/dashboards/
+cp ./dash_temp/* /home/"${SUDO_USER:-$USER}"/docker/grafana/dashboards/
+cp ./telegraf.conf /home/"${SUDO_USER:-$USER}"/docker/telegraf.conf
 bash ./bash/docker_compose.sh
 echo "$SPLIT"
 echo "Created docker-comose.yml with:"
