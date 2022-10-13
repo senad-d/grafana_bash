@@ -9,10 +9,15 @@ apiVersion: 1
 datasources:
   
   - name: CloudWatch
-    type: cloudwatch
-    jsonData:
-      authType: default
-      defaultRegion: eu-west-1
+    orgId: 1
+    type: file
+    disableDeletion: false
+    editable: true
+    updateIntervalSeconds: 60
+    allowUiUpdates: true
+    options:
+      path: /etc/grafana/provisioning/dashboards
+      foldersFromFilesStructure: true
   
   - name: InfluxDB
     type: influxdb
@@ -25,14 +30,10 @@ EOF
 
 cat <<EOF > /home/"${SUDO_USER:-$USER}"/docker/grafana/dashboards/dashboard.yml
 apiVersion: 1
-
-providers:
-- name: 'CloudWatch'
-  orgId: 1
-  folder: ''
-  type: file
-  disableDeletion: false
-  editable: true
-  options:
-    path: /etc/grafana/provisioning/dashboards
+datasources:
+  - name: CloudWatch
+    type: cloudwatch
+    jsonData:
+      authType: default
+      defaultRegion: ${AWSREGION}
 EOF
